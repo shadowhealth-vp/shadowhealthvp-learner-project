@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= content_for(:title) || "Pokedex" %></title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <script>
+    </script>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <%= yield :head %>
+
+    <link rel="icon" href="/icon.png" type="image/png">
+    <link rel="icon" href="/icon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="/icon.png">
+
+    <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+  </head>
+
+  <body>
+    <main class="container mx-auto mt-28 px-5 flex">
+      
+      <!-- Sidebar -->
+      <aside class="w-1/4 bg-gray-100 p-4 rounded-lg shadow-md mr-10">
+        <h2 class="text-xl font-semibold mb-4">Pokedex</h2>
+        <ul class="space-y-2">
+          <li>
+            <a href="<%= pokemons_path %>" class="block px-4 py-2 rounded-md bg-red-500 text-white hover:bg-red-600">
+              Home
+            </a>
+          </li>
+          <li>
+            <a href="<%= teams_teams_page_path %>" class="block px-4 py-2 rounded-md bg-blue-500 text-white hover:bg-blue-600">
+              My Team
+            </a>
+          </li>
+          <li>
+            <% if user_signed_in? %>
+  <%= link_to "Edit Profile", edit_user_registration_path, 
+      class: "block px-4 py-2 rounded-md bg-green-500 text-white hover:bg-green-600" %>
+<% end %>
+
+            
+          </li>
+          <li>
+            <a href="#" class="block px-4 py-2 rounded-md bg-yellow-500 text-white hover:bg-yellow-600">
+<% if user_signed_in? %>
+  Logged in as <strong><%= current_user.email %></strong>
+  <%= link_to "Logout", destroy_user_session_path, data: { turbo_method: :delete }, class: "navbar-link"  %>
+<% else %>
+  <%= link_to "Sign up", new_user_registration_path, class: "navbar-link"  %> |
+  <%= link_to "Login", new_user_session_path, class: "navbar-link"  %>
+<% end %>
+
+            </a>
+          </li>
+        </ul>
+      </aside>
+
+      <!-- Main Content -->
+      <div class="w-3/4">
+        <% if notice %>
+  <p class="alert alert-success"><%= notice %></p>
+  <% end %>
+  <% if alert %>
+  <p class="alert alert-danger"><%= alert %></p>
+  <% end %>
+        <%= yield %>
+      </div>
+      
+    </main>
+  </body>
+</html>

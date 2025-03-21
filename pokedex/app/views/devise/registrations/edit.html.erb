@@ -1,0 +1,44 @@
+<h1 class="text-2xl font-bold mb-6">
+  <%= t('.title', resource: resource_name.to_s.humanize) %>
+</h1>
+
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put, class: "space-y-6" }) do |f| %>
+  <%= bootstrap_devise_error_messages! %>
+
+  <div>
+    <%= f.label :email, class: "block text-sm font-medium text-gray-700" %>
+    <%= f.email_field :email, autofocus: true, autocomplete: 'email', class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" %>
+  </div>
+
+  <div>
+    <%= f.label :password, class: "block text-sm font-medium text-gray-700" %>
+    <%= f.password_field :password, autocomplete: 'new-password', class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" %>
+    <small class="text-xs text-gray-500">
+      <%= t('Test') %>
+    </small>
+  </div>
+
+  <div>
+    <%= f.label :password_confirmation, class: "block text-sm font-medium text-gray-700" %>
+    <%= f.password_field :password_confirmation, autocomplete: 'new-password', class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" %>
+  </div>
+
+  <div>
+    <%= f.label :current_password, class: "block text-sm font-medium text-gray-700" %>
+    <%= f.password_field :current_password, autocomplete: 'current-password', class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" %>
+    <small class="text-xs text-gray-500">
+      <%= t('Test') %>
+    </small>
+  </div>
+
+  <div>
+    <%= f.submit t('.update'), class: "w-full inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" %>
+  </div>
+<% end %>
+
+<p class="mt-6 text-sm text-gray-600">
+  <%= t('.unhappy') %>? 
+  <%= link_to t('.cancel_my_account'), registration_path(resource_name), data: { confirm: t('.are_you_sure') }, method: :delete, class: "text-indigo-600 hover:text-indigo-500" %>.
+</p>
+
+<%= link_to t('.back'), :back, class: "text-indigo-600 hover:text-indigo-500 text-sm" %>

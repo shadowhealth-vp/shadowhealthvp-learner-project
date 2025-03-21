@@ -1,0 +1,61 @@
+/* app/assets/stylesheets/_pokemon_index.scss */
+
+.pokemon-index {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr); // Force exactly 5 columns
+    gap: 1rem;
+    max-width: 80rem;
+    margin: 0 auto;
+    padding: 1rem;
+
+    // Enable scroll if content overflows
+    max-height: 85vh;
+    overflow-y: auto;
+}
+
+.pokemon-card {
+    background-color: #fff;
+    border: 1px solid #e5e7eb;
+    border-radius: 0.5rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    padding: 1rem;
+    text-align: center;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    cursor: pointer;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 200px;
+    width: 100%;
+
+    &:hover {
+        transform: scale(1.05);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+
+    img {
+        width: 80px;
+        height: 80px;
+        object-fit: contain;
+        margin: 0 auto;
+    }
+
+    .pokemon-name {
+        font-size: 1rem;
+        font-weight: 600;
+        text-transform: capitalize;
+        margin-top: 0.5rem;
+    }
+
+    .pokemon-link {
+        margin-top: 0.25rem;
+        color: #3b82f6;
+        font-size: 0.875rem;
+        text-decoration: none;
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+}

@@ -1,0 +1,50 @@
+@import "sidebar";
+
+/* app/assets/stylesheets/_sidebar.scss */
+
+.sidebar {
+    width: 25%;
+    background-color: #f3f4f6; // Tailwind's bg-gray-100
+    padding: 1rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  }
+  
+  .sidebar h2 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+  }
+  
+  .sidebar ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .sidebar li + li {
+    margin-top: 0.5rem;
+  }
+  
+  .sidebar a {
+    display: block;
+    padding: 0.5rem 1rem;
+    border-radius: 0.375rem;
+    color: #fff;
+    font-weight: 500;
+    text-decoration: none;
+    transition: background-color 0.2s;
+  }
+  
+  .sidebar a.home    { background-color: #ef4444; } // red-500
+  .sidebar a.home:hover    { background-color: #dc2626; } // red-600
+  
+  .sidebar a.team    { background-color: #3b82f6; } // blue-500
+  .sidebar a.team:hover    { background-color: #2563eb; } // blue-600
+  
+  .sidebar a.profile { background-color: #10b981; } // green-500
+  .sidebar a.profile:hover { background-color: #059669; } // green-600
+  
+  .sidebar a.auth    { background-color: #facc15; color: #000; } // yellow-500
+  .sidebar a.auth:hover    { background-color: #eab308; }
+  
