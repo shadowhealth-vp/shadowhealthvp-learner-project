@@ -3,17 +3,13 @@ require "json"
 
 class TeamsController < ApplicationController
   def teams_page
-    all_pokemons = PokemonService.new.get_all(limit: 151)
+    all_pokemons = PokemonService.get_all(limit: 151)
 
     @team = current_user.teams.first_or_create(name: "My Team")
     @team_members = @team.team_members
 
-    if params[:query].present?
-      query = params[:query].downcase.strip
-      @pokemons_search = all_pokemons.select { |pokemon| pokemon["name"].start_with?(query) }
-    else
-      @pokemons_search = all_pokemons
-    end
+    # Pokemon Search Logic into service
+    @pokemons_search = PokemonService.search_pokemon(params[:query], all_pokemons)
 
     respond_to do |format|
       format.html
@@ -23,15 +19,15 @@ class TeamsController < ApplicationController
           partial: "teams/pokemon_grid",
           locals: { pokemons: @pokemons_search }
         )
-      end # <-- closes format.turbo_stream do
-    end   # <-- closes respond_to
+      end
+    end
   end
 
   def create_team_member
     @team = current_user.teams.find(params[:team_id])
     name = params[:pokemon_name].downcase.strip
 
-    if @team.team_members.count >= 6
+    if TeamBuilder.check_team_size(@team)
       redirect_to teams_teams_page_path, alert: "Team already has 6 Pokémon."
       return
     end
@@ -40,10 +36,7 @@ class TeamsController < ApplicationController
       response = Net::HTTP.get(URI("https://pokeapi.co/api/v2/pokemon/#{name}"))
       data = JSON.parse(response)
 
-      new_member = @team.team_members.build(
-        name: data["name"],
-        pokemon_id: data["id"]
-      )
+      new_member = TeamBuilder.create_new_member(@team, data)
 
       if new_member.save
         redirect_to teams_teams_page_path, alert: "#{data["name"].capitalize} added to your team!"
