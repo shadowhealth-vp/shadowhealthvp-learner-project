@@ -2,12 +2,8 @@ require "net/http"
 require "json"
 
 class TeamsController < ApplicationController
-  URL = "https://pokeapi.co/api/v2/pokemon"
-
   def teams_page
-    response = Net::HTTP.get(URI("#{URL}?limit=151"))
-    data = JSON.parse(response)
-    all_pokemons = data["results"]
+    all_pokemons = PokemonService.new.get_all(limit: 151)
 
     @team = current_user.teams.first_or_create(name: "My Team")
     @team_members = @team.team_members
