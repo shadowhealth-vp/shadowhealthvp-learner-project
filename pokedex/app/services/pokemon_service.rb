@@ -32,8 +32,14 @@ class PokemonService
     end
   end
 
+  def self.get_next_pokemon(cur_poke_id)
+    next_id = cur_poke_id + 1
+    return nil if next_id > 151
+    get_by_id(next_id)
+  end
+
   def self.search_pokemon(query, all_pokemons)
     return all_pokemons if query.blank?
-    all_pokemons.select { |pokemon| pokemon["name"].start_with?(query) }
+    all_pokemons.select { |pokemon| pokemon[:name].start_with?(query.downcase.strip) }
   end
 end
