@@ -3,15 +3,15 @@ require "json"
 
 class TeamsController < ApplicationController
   def teams_page
-    all_pokemons = PokemonService.get_all(151)
-    @pokemons = PokemonService.get_pokemon_data(all_pokemons)
+  all_pokemons = PokemonService.get_all(151)
+  detailed_pokemons = PokemonService.get_pokemon_data(all_pokemons)
 
-    @team = current_user.teams.first_or_create(name: "My Team")
-    @team_members = @team.team_members
+  @team = current_user.teams.first_or_create(name: "My Team")
+  @team_members = @team.team_members
 
-    # Pokemon Search Logic into service
-    @pokemons_search = PokemonService.search_pokemon(params[:query], all_pokemons)
-  end
+  @pokemons = detailed_pokemons
+  @pokemons_search = PokemonService.search_pokemon(params[:query], detailed_pokemons)
+end
 
   def create_team_member
     @team = current_user.teams.find(params[:team_id])

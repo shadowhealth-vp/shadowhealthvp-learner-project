@@ -1,40 +1,57 @@
-<div class="max-w-md mx-auto bg-white shadow-lg rounded-lg overflow-hidden p-6 border border-gray-200">
-  <h1 class="text-3xl font-bold text-center text-gray-800 mb-4">
-    <%= @pokemon["name"].capitalize %>
+<div class="max-w-md mx-auto border-4 border-black rounded-lg overflow-hidden p-6 shadow-xl <%= type_color_class(@pokemon["types"][0]["type"]["name"]) %>">
+
+  <!-- Name + ID -->
+  <h1 class="text-4xl text-center text-white tracking-wide mb-4 border-b-2 border-black pb-2">
+    <%= @pokemon["name"].capitalize %> (#<%= @pokemon["id"] %>)
   </h1>
 
-<!-- actual sprite -->
-  <div class="flex justify-center">
-    <img src="<%= @pokemon['sprites']['front_default'] %>" 
-         alt="<%= @pokemon['name'] %>" 
-         class="w-32 h-32 object-contain">
+  <!-- Sprite -->
+  <div class="flex justify-center mb-4">
+    <img src="<%= @pokemon["sprites"]["front_default"] %>" 
+         alt="<%= @pokemon["name"] %>" 
+         class="w-32 h-32 object-contain border-2 border-black bg-white p-2 rounded-lg">
   </div>
 
-  <!-- height and weight -->
-  <div class="mt-4">
-    <p class="text-gray-600"><strong>Height:</strong> <%= @pokemon["height"] %></p>
-    <p class="text-gray-600"><strong>Weight:</strong> <%= @pokemon["weight"] %></p>
+  <!-- Types -->
+  <div class="flex justify-center gap-2 mb-4">
+    <%= render partial: "shared/type_badges", locals: { types: @pokemon["types"].map { |t| t["type"]["name"] } } %>
   </div>
 
-  <h2 class="text-xl font-semibold text-gray-700 mt-4">Abilities</h2>
+  <!-- Physical Info -->
+  <div class="text-white text-center mb-6">
+    <p><strong>Height:</strong> <%= @pokemon["height"] %> dm</p>
+    <p><strong>Weight:</strong> <%= @pokemon["weight"] %> hg</p>
+  </div>
+
+  <!-- Stats -->
+  <div class="grid grid-cols-2 gap-2 text-white text-sm mb-6">
+    <% @pokemon["stats"].each do |stat| %>
+      <p><strong><%= stat["stat"]["name"].capitalize %>:</strong> <%= stat["base_stat"] %></p>
+    <% end %>
+  </div>
 
   <!-- Abilities -->
-  <ul class="mt-2 space-y-1">
+  <h2 class="text-2xl font-bold text-white text-center mb-2">Abilities</h2>
+  <div class="flex flex-wrap justify-center gap-2 mb-6">
     <% @pokemon["abilities"].each do |ability| %>
-      <li class="bg-gray-100 text-gray-700 px-3 py-1 rounded-md inline-block">
+      <span class="bg-yellow-300 border border-black px-3 py-1 rounded-full text-black shadow">
         <%= ability["ability"]["name"].capitalize %>
-      </li>
+      </span>
     <% end %>
-  </ul>
-<!-- Button to go to next pokemon -->
-<div class="flex justify-center mt-6">
-  <a href="<%= pokemon_path(@pokemon["id"] + 1) %>"
-     class="relative flex items-center px-6 py-3 text-white font-bold 
-            bg-red-500 rounded-full border-4 border-black shadow-lg 
-            hover:bg-red-600 transition-transform transform hover:scale-105">
-    
-    <span class="absolute left-2 top-1/2 transform -translate-y-1/2 w-3 h-3 bg-white rounded-full"></span>
-    
-    <span class="ml-2">&rarr;</span>
-  </a>
+  </div>
+
+  <!-- Navigation -->
+  <div class="flex justify-center mt-4">
+    <% current_id = @pokemon["id"] || @pokemon["url"].split("/")[-2].to_i %>
+    <% next_pokemon = PokemonService.get_next_pokemon(current_id) %>
+    <% if next_pokemon %>
+      <a  href="<%= pokemon_path(next_pokemon["name"]) %>" 
+          class="relative flex items-center px-6 py-3 text-white font-bold 
+              bg-black rounded-full border-4 border-white shadow-lg 
+              hover:bg-gray-800 transition-transform transform hover:scale-105">
+      <span class="absolute left-2 top-1/2 transform -translate-y-1/2 w-3 h-3 bg-white rounded-full"></span>
+      <span class="ml-2">Next ➜</span>
+    </a>
+    <% end %>
+  </div>
 </div>

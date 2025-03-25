@@ -1,0 +1,19 @@
+<div class="w-4xl h-xl grid grid-cols-6 gap-4 ml-6 rounded-lg mb-4">
+    <% @pokemons.each do |pokemon| %>
+      <% pokemon_id = pokemon[:id] %>
+        <a href="<%= pokemon_path(pokemon[:name]) %>" 
+          class="block shadow-lg rounded-lg p-4 text-center border border-gray-200 
+                  transition-transform transform hover:scale-105 hover:shadow-2xl cursor-pointer <%= type_color_class(pokemon[:types][0]) %>">
+          
+          <img src="<%= get_sprite_url_from_id(pokemon_id) %>"
+              alt="<%= pokemon[:name] %>" 
+              class="w-32 h-32 object-contain mx-auto">
+
+          <p class="text-lg font-semibold capitalize mt-2 overflow-hidden max-w-full truncate"><%= pokemon[:name] %></p>
+
+          <!-- Pokemon Types -->
+          <%= render partial: "shared/type_badges", locals: { types: pokemon[:types] } %>
+        </a>
+      <% end %>
+  </div>
+</div>
