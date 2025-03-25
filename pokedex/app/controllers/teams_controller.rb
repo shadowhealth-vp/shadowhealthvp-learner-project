@@ -10,21 +10,11 @@ class TeamsController < ApplicationController
 
     # Pokemon Search Logic into service
     @pokemons_search = PokemonService.search_pokemon(params[:query], all_pokemons)
-
-    respond_to do |format|
-      format.html
-      format.turbo_stream do
-        render turbo_stream: turbo_stream.replace(
-          "pokemon_results",
-          partial: "teams/pokemon_grid",
-          locals: { pokemons: @pokemons_search }
-        )
-      end
-    end
   end
 
   def create_team_member
     @team = current_user.teams.find(params[:team_id])
+    # @team.reload
     name = params[:pokemon_name].downcase.strip
 
     if TeamBuilder.check_team_size(@team)
@@ -39,6 +29,7 @@ class TeamsController < ApplicationController
       new_member = TeamBuilder.create_new_member(@team, data)
 
       if new_member.save
+        puts "Testing"
         redirect_to teams_teams_page_path, alert: "#{data["name"].capitalize} added to your team!"
       else
         redirect_to teams_teams_page_path, alert: "Failed to save Pokémon."
@@ -51,6 +42,6 @@ class TeamsController < ApplicationController
   def destroy
     team = current_user.teams.find(params[:id])
     team.team_members.destroy_all
-    redirect_to teams_teams_page_path, notice: "Team deleted"
+    redirect_to teams_teams_page_path, alert: "Team deleted"
   end
 end

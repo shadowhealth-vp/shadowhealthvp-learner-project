@@ -1,1 +1,8 @@
 @import "tailwindcss";
+
+@font-face {
+    font-family: 'GameBoy1989';
+    src: url('/assets/game_boy_1989.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
