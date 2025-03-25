@@ -3,13 +3,24 @@ require "net/http"
 class PokemonService
   URL = "https://pokeapi.co/api/v2/pokemon"
 
-  def self.get_all(limit: 500)
+  def self.get_all(limit = 151)
     Rails.cache.fetch("pokemon_all_#{limit}", expires_in: 1.hour) do
       response = Net::HTTP.get(URI("#{URL}?limit=#{limit}"))
       data = JSON.parse(response)
 
       # Array of Pokémon with name/url
       data["results"]
+    end
+  end
+
+  def self.get_pokemon_data(data)
+    @pokemons = data.map do |poke|
+      details = PokemonService.get_by_id(poke["name"])
+      {
+        name: details["name"],
+        id: details["id"],
+        types: details["types"].map { |t| t["type"]["name"] }
+      }
     end
   end
 
