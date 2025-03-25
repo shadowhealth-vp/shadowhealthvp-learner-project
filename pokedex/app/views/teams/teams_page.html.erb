@@ -26,7 +26,7 @@
             <img src="<%= get_sprite_url_from_id(member.pokemon_id) %>"
                  alt="<%= member.name %>"
                  class="w-24 h-24 object-contain mx-auto" />
-            <p class="mt-2 font-semibold capitalize text-gray-800"><%= member.name %></p>
+            <p class="mt-2 font-semibold capitalize text-gray-800 overflow-hidden max-w-full"><%= member.name %></p>
             <p class="text-sm text-gray-500">ID: <%= member.pokemon_id %></p>
           </div>
         <% end %>

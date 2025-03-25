@@ -3,7 +3,8 @@ require "json"
 
 class TeamsController < ApplicationController
   def teams_page
-    all_pokemons = PokemonService.get_all(limit: 151)
+    all_pokemons = PokemonService.get_all(151)
+    @pokemons = PokemonService.get_pokemon_data(all_pokemons)
 
     @team = current_user.teams.first_or_create(name: "My Team")
     @team_members = @team.team_members
