@@ -1,7 +1,9 @@
 <div class="flex justify-center gap-2 mt-2">
-  <% types.each do |type| %>
-    <span class="text-xs bg-gray-200 rounded-full px-2 py-1 font-semibold <%= type_badge_class(type) %>">
-      <%= type.capitalize %>
-    </span>
+  <% cache(types.sort.join("-")) do %>
+    <% types.each do |type| %>
+      <span class="text-xs bg-gray-200 rounded-full px-2 py-1 font-semibold <%= type_badge_class(type) %>">
+        <%= type.capitalize %>
+      </span>
+    <% end %>
   <% end %>
 </div>

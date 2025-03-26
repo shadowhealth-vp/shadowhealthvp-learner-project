@@ -3,14 +3,15 @@ require "json"
 
 class PokemonsController < ApplicationController
   def index
-    data = PokemonService.get_all(151)
-    @pokemons = PokemonService.get_pokemon_data(data)
+    @pokemons = Pokemon.all.order(:poke_id)
   end
 
   def show
-    pokemon_id = params[:id]
-    @pokemon = PokemonService.get_by_id(pokemon_id)
+    @pokemon = Pokemon.find_by(name: params[:name])
 
-    render :show
+    if @pokemon.nil?
+      redirect_to pokemons_path, alert: "Pokémon not found"
+    end
+    # render :show
   end
 end
