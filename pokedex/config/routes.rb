@@ -3,8 +3,7 @@ Rails.application.routes.draw do
 
   root "pokemons#index"
 
-  resources :pokemons, only: [ :index, :show ]
-
+  resources :pokemons, param: :name, only: [ :index, :show ]
   resources :teams, only: [ :destroy ] do
     resources :team_members, only: [ :create ]
   end

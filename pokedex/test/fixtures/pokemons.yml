@@ -1,0 +1,21 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  poke_id: 1
+  types: MyString
+  height: 1
+  weight: 1
+  sprite_url: MyString
+  stats: 
+  abilities: MyString
+
+two:
+  name: MyString
+  poke_id: 1
+  types: MyString
+  height: 1
+  weight: 1
+  sprite_url: MyString
+  stats: 
+  abilities: MyString
