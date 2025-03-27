@@ -10,7 +10,7 @@
 
 puts "Seeding Pokemon into DB.."
 
-# Fetch the pokemon
+# Fetch all 251 (Kanto-Johto) Pokemon
 pokemon_list = PokemonService.get_all(251)
 
 # Loop through each pokemon

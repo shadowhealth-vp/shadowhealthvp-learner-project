@@ -1,3 +1,4 @@
+<!-- All the Pokemons within our Teams Page -->
 <div class="w-2xl grid grid-cols-4 gap-4 ml-6">
   <% pokemons.each do |pokemon| %>
     <%= form_with url: add_pokemon_to_team_path(@team), method: :post, data: { turbo: false }, local: true do %>
@@ -12,7 +13,7 @@
              class="w-32 h-32 object-contain mx-auto">
 
         <p class="text-lg font-semibold capitalize mt-2 overflow-hidden max-w-full truncate">
-          <%= pokemon[:name] %>
+          <%= pokemon.name %>
         </p>
 
         <%= render partial: "shared/type_badges", locals: { types: pokemon[:types] } %>
