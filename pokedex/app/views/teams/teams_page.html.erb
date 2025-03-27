@@ -28,16 +28,14 @@
                                                        class: "bg-red-500 text-white mb-4 px-4 py-2 rounded hover:bg-red-600 cursor-pointer" %>
         <div class="grid grid-cols-2 gap-5">
           <% @team_members.each do |member| %>
-            <div class="bg-white shadow-md border border-gray-200 rounded-lg p-4 text-center">
+            <%= button_to team_team_member_path(@team, member), method: :delete,
+                                                                class: "bg-white shadow-md border border-gray-200 rounded-lg p-4 text-center transition-transform transform hover:scale-105 hover:shadow-2xl cursor-pointer cursor-pointer" do %>
               <img src="<%= get_sprite_url_from_id(member.pokemon_id) %>"
                   alt="<%= member.name %>"
                   class="w-24 h-24 object-contain mx-auto" />
               <p class="mt-2 font-semibold capitalize text-gray-800 overflow-hidden max-w-full"><%= member.name %></p>
               <p class="text-sm text-gray-500">ID: <%= member.pokemon_id %></p>
-            </div>
-            <% # <% @team_members.each do |pokemon| %>
-            <% # <%= render partial: "shared/pokemon_card", locals: { pokemon: pokemon } %>
-          <% # <% end %>
+            <% end %>
           <% end %>
         </div>
       <% else %>

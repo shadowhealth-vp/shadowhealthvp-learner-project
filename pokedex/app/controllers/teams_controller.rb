@@ -12,7 +12,7 @@ class TeamsController < ApplicationController
   @pokemons_search = PokemonService.search_pokemon(params[:query], @pokemons)
   end
 
-  def create_team_member
+  def add_team_member
     @team = current_user.teams.find(params[:team_id])
     name = params[:pokemon_name].downcase.strip
 
