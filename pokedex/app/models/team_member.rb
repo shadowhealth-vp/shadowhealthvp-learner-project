@@ -1,3 +1,3 @@
 class TeamMember < ApplicationRecord
-  has_many :teams
+  belongs_to :team
 end
