@@ -24,11 +24,9 @@ class PokemonApiService
     if cached && cached.updated_at > 12.hours.ago
       return cached.data
     end
-
+    # Fetch fresh data from external API if no cached data
     response = Net::HTTP.get(URI("#{URL}/#{name}"))
     data = JSON.parse(response)
-    puts "Showcasing data"
-    # Fetch fresh data from external API if no cached data
     record = CachedPokemon.find_or_initialize_by(name: name)
     record.data = data
     record.save!
