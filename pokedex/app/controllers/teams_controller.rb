@@ -3,13 +3,13 @@ require "json"
 
 class TeamsController < ApplicationController
   def teams_page
-  @team = current_user.teams.first_or_create(name: "My Team")
-  @team_members = @team.team_members
+    @team = current_user.teams.first_or_create(name: "My Team")
+    @team_members = @team.team_members
 
-  all_pokemons = Pokemon.order(:poke_id)
-  @pokemons = all_pokemons
+    all_pokemons = Pokemon.order(:poke_id)
+    @pokemons = all_pokemons
 
-  @pokemons_search = PokemonService.search_pokemon(params[:query], @pokemons)
+    @pokemons_search = PokemonService.search_pokemon(params[:query], @pokemons)
   end
 
   def add_team_member
@@ -28,7 +28,7 @@ class TeamsController < ApplicationController
       new_member = TeamBuilder.create_new_member(@team, data)
 
       if new_member.save
-        puts "Testing"
+        puts "PokemonApiService"
         redirect_to teams_teams_page_path, alert: "#{data["name"].capitalize} added to your team!"
       else
         redirect_to teams_teams_page_path, alert: "Failed to save Pokémon."

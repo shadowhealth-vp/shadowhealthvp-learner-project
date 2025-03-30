@@ -3,10 +3,6 @@ module PokemonsHelper
     "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/#{pokemon_id}.png"
   end
 
-  def get_sprite_url_from_name(pokemon_name)
-    "nil"
-  end
-
   def type_badge_class(type)
     case type
     when "fire"
@@ -48,7 +44,6 @@ module PokemonsHelper
     end
   end
 
-# app/helpers/pokemon_helper.rb
 def type_color_class(type)
   case type
   when "fire"

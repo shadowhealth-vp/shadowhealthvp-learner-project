@@ -10,9 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_03_26_171847) do
+ActiveRecord::Schema[8.0].define(version: 2025_03_28_182045) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
+
+  create_table "cached_pokemons", force: :cascade do |t|
+    t.string "name"
+    t.jsonb "data"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "pokemons", force: :cascade do |t|
     t.string "name"
@@ -25,6 +32,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_26_171847) do
     t.string "abilities", default: [], array: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "fetched_time"
   end
 
   create_table "team_members", force: :cascade do |t|
