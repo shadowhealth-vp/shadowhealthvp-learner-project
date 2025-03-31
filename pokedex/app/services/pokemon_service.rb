@@ -1,21 +1,7 @@
-require "net/http"
-
 class PokemonService
-  URL = "https://pokeapi.co/api/v2/pokemon"
-
-  def self.get_all(limit = 151)
-    Rails.cache.fetch("pokemon_all_#{limit}", expires_in: 1.hour) do
-      response = Net::HTTP.get(URI("#{URL}?limit=#{limit}"))
-      data = JSON.parse(response)
-
-      # Array of Pokémon with name/url
-      data["results"]
-    end
-  end
-
   def self.get_pokemon_data(data)
-    @pokemons = data.map do |poke|
-      details = PokemonService.get_by_id(poke["name"])
+    @pokemons = data.map do |pokemon|
+      details = PokemonApiService.get_by_id(pokemon["name"])
       {
         name: details["name"],
         id: details["id"],
@@ -24,18 +10,9 @@ class PokemonService
     end
   end
 
-  def self.get_by_id(pokemon_id)
-    # testing out cache in
-    Rails.cache.fetch("pokemon_#{pokemon_id}", expires_in: 1.hour) do
-      response = Net::HTTP.get(URI("#{URL}/#{pokemon_id}"))
-      JSON.parse(response)
-    end
-  end
-
   def self.get_next_pokemon(cur_poke_id)
-  Pokemon.find_by(poke_id: cur_poke_id + 1)
+    Pokemon.find_by(poke_id: cur_poke_id + 1)
   end
-
 
   def self.search_pokemon(query, all_pokemons)
     return all_pokemons if query.blank?

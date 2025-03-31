@@ -7,11 +7,7 @@ class PokemonsController < ApplicationController
   end
 
   def show
-    @pokemon = Pokemon.find_by(name: params[:name])
-
-    if @pokemon.nil?
-      redirect_to pokemons_path, alert: "Pokémon not found"
-    end
+    @pokemon = PokemonCacheService.find_or_fetch(params[:name])
     # render :show
   end
 end

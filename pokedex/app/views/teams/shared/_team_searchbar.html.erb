@@ -1,0 +1,14 @@
+<!-- Search bar to lookup a Pokemon -->
+
+<div>
+    <h1 class="font-bold text-4xl mb-4">Create your team</h1>
+        <%= form_with url: teams_teams_page_path, method: :get, data: { turbo_frame: "pokemon_results" }, local: true do %>
+        <div class="mb-5">
+        <input type="text" name="query" id="query"
+                placeholder="Search for a Pokémon"
+                value="<%= params[:query] %>"
+                class="border-black-500 text-gray-900 text-sm rounded-lg bg-gray-200 w-full px-4 py-2"
+                oninput="this.form.requestSubmit();" />
+        </div>
+    <% end %>
+</div>

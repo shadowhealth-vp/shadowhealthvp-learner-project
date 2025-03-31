@@ -1,5 +1,6 @@
 require "rails_helper"
 
+# Team Size test
 RSpec.describe Team do
   it "does not allow more than 6 Pokemon on a team" do
     user = User.create!(email: "ash@example.com", password: "pikachu123")
@@ -13,11 +14,6 @@ RSpec.describe Team do
         pokemon_id: i + 1
       )
     end
-    new_member = TeamMember.new(
-      team: team,
-      name: "Pokemons",
-      pokemon_id: 9999
-    )
 
     size_check = TeamBuilder.check_team_size(team)
     expect(size_check).not_to be_falsey
