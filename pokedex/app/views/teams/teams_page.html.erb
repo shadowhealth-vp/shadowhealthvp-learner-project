@@ -3,7 +3,8 @@
 
   <!-- Search Result Grid -->
   <turbo-frame id="pokemon_results" class="flex-grow">
-    <%= render partial: "teams/pokemon_grid", locals: { pokemons: @pokemons_search, team: @team } %>
+    <!-- Render the Pokemon Teams Card -->
+    <%= render partial: "shared/pokemon_teams_card", locals: { pokemons: @pokemons_search } %>
   </turbo-frame>
 
   <!-- Current Team and Search Sidebar-->
