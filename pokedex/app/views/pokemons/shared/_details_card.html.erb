@@ -1,0 +1,72 @@
+<!-- Pokemon Banner -->
+<div class="relative h-48 <%= type_color_class(@pokemon.types[0]) %> flex justify-center items-end">
+    <div class="absolute top-0 w-full h-full bg-white opacity-20 rounded-b-full"></div>
+
+    <img src="<%= @pokemon.sprite_url %>"
+            alt="<%= @pokemon.name %>"
+            class="z-10 w-40 h-40 object-contain mb-4 drop-shadow-lg">
+    </div>
+
+    <!-- Content -->
+    <div class="px-6 py-4">
+
+    <!-- Name + ID -->
+    <h1 class="text-4xl font-bold text-gray-800 text-center mb-2">
+        <%= @pokemon.name.capitalize %>
+    </h1>
+
+    <!-- Types -->
+    <div class="flex justify-center gap-2 mb-4">
+        <% @pokemon.types.each do |type| %>
+        <span class="px-3 py-1 rounded-full font-semibold text-sm shadow
+                        <%= type_badge_class(type) %>">
+            <%= type.capitalize %>
+        </span>
+        <% end %>
+    </div>
+
+    <!-- Description (placeholder for possibly more data) -->
+    <p class="text-center text-gray-600 text-sm mb-6">
+        [placeholder]
+    </p>
+
+    <!-- Stats / Info -->
+    <div class="grid grid-cols-2 gap-4 text-sm text-gray-700 mb-6">
+        <div>
+            <p class="font-bold text-lg">WEIGHT</p>
+            <p><%= @pokemon.weight / 10.0 %> kg</p>
+        </div>
+        
+        <div>
+            <p class="font-bold text-lg">HEIGHT</p>
+            <p><%= @pokemon.height / 10.0 %> m</p>
+        </div>
+        
+        <div>
+            <p class="font-bold text-lg">BASE STATS</p>
+            <% @pokemon.stats.each do |stat_name, value| %>
+                <p><%= stat_name.capitalize %>: <%= value %></p>
+            <% end %>
+        </div>
+        
+        <div>
+            <p class="font-bold text-lg">ABILITIES</p>
+            <% @pokemon.abilities.each do |a| %>
+                <p><%= a.capitalize %></p>
+            <% end %>
+        </div>
+    </div>
+
+    <!-- Next Pokemon Navigation -->
+    <div class="flex justify-center mt-4">
+        <% next_pokemon = PokemonService.get_next_pokemon(@pokemon.poke_id) %>
+        <% if next_pokemon %>
+        <a  href="<%= pokemon_path(next_pokemon.name) %>" 
+            class="relative flex items-center px-3 py-3 text-white font-bold 
+                    <%= type_badge_class(@pokemon.types[0]) %> rounded-full border-4 border-white shadow-lg 
+                    hover:bg-gray-800 transition-transform transform hover:scale-105">
+            <span class="ml-2">Next ➜</span>
+        </a>
+        <% end %>
+    </div>
+</div>
