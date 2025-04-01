@@ -2,11 +2,12 @@ require "net/http"
 # Any PokeAPI service goes here
 
 class PokemonApiService
-  URL = "https://pokeapi.co/api/v2/pokemon"
+  URL_POKEMON = "https://pokeapi.co/api/v2/pokemon"
+  URL_POKEMON_SPECIES = "https://pokeapi.co/api/v2/pokemon-species/"
 
   def self.get_all(limit = 351)
     Rails.cache.fetch("pokemon_all_#{limit}", expires_in: 1.hour) do
-      response = Net::HTTP.get(URI("#{URL}?limit=#{limit}"))
+      response = Net::HTTP.get(URI("#{URL_POKEMON}?limit=#{limit}"))
       data = JSON.parse(response)
 
       # Array of Pokémon with name/url
@@ -14,7 +15,7 @@ class PokemonApiService
     end
   end
 
-  def self.get_by_name(name)
+  def self.get_base_pokemon_data(name)
     name = name.downcase.strip
 
     # Checks if the pokemon is previously stored inside the CachedPokemon model
@@ -25,7 +26,7 @@ class PokemonApiService
       return cached.data
     end
     # Fetch fresh data from external API if no cached data
-    response = Net::HTTP.get(URI("#{URL}/#{name}"))
+    response = Net::HTTP.get(URI("#{URL_POKEMON}/#{name}"))
     data = JSON.parse(response)
     record = CachedPokemon.find_or_initialize_by(name: name)
     record.data = data
@@ -39,5 +40,11 @@ class PokemonApiService
       response = Net::HTTP.get(URI("#{URL}/#{pokemon_id}"))
       JSON.parse(response)
     end
+  end
+
+  # Pokemon Species API call
+  def self.get_species_data(name)
+    response = Net::HTTP.get(URI("#{URL_POKEMON_SPECIES}/#{name}"))
+    JSON.parse(response)
   end
 end

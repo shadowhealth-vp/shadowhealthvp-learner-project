@@ -7,7 +7,7 @@ class PokemonsController < ApplicationController
   end
 
   def show
+    @pokemons = Pokemon.all.order(:poke_id) # Entire list of pokemons
     @pokemon = PokemonCacheService.find_or_fetch(params[:name])
-    # render :show
   end
 end

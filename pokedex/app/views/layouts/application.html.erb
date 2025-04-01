@@ -6,10 +6,6 @@
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="mobile-web-app-capable" content="yes" />
 
-    <%# <script>
-      // JS Scripts
-    </script> %>
-
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
     <%= yield :head %>
@@ -23,10 +19,21 @@
   </head>
 
   <body class="bg-sky-100 min-h-screen">
-    <main class="container mx-auto mt-28 px-5 flex">
+    <!-- Full Screen Wrapper -->
+    <div class="flex flex-col min-h-screen">
 
-      <!-- Sidebar -->
-      <%= render partial: "layouts/sidebar" %>
+      <!-- Main Content Area with Sidebar -->
+      <div class="flex flex-grow mt-24 overflow-hidden">
+        <!-- Sidebar -->
+        <aside class="w-64 min-w-[16rem] text-white p-4 sticky top-0 h-screen hidden md:block">
+          <%= render partial: "layouts/sidebar" %>
+        </aside>
+
+        <!-- Main Page Content -->
+        <main class="w-full max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8 flex-1 overflow-x-auto px-6 pb-10">
+          <%= yield %>
+        </main>
+      </div>
 
       <!-- Flash Messages -->
       <% flash.each do |key, message| %>
@@ -45,12 +52,6 @@
           }, 3000);
         </script>
       <% end %>
-
-      <!-- Main Content -->
-      <div class="w-1/2">
-        <%= yield %>
-      </div>
-      
-    </main>
+    </div>
   </body>
 </html>

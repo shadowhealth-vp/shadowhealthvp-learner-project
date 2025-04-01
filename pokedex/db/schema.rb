@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_03_28_182045) do
+ActiveRecord::Schema[8.0].define(version: 2025_04_01_180046) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -33,6 +33,19 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_28_182045) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.datetime "fetched_time"
+    t.text "description"
+    t.string "species"
+    t.string "habitat"
+    t.boolean "is_legendary"
+    t.boolean "is_mythical"
+    t.integer "capture_rate"
+    t.integer "base_happiness"
+    t.string "shape"
+    t.string "growth_rate"
+    t.string "color"
+    t.text "egg_groups"
+    t.string "gender_ratio"
+    t.string "generation"
   end
 
   create_table "team_members", force: :cascade do |t|
@@ -41,6 +54,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_28_182045) do
     t.bigint "team_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.text "types"
     t.index ["team_id"], name: "index_team_members_on_team_id"
   end
 

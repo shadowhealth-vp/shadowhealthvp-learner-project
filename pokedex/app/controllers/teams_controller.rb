@@ -17,26 +17,27 @@ class TeamsController < ApplicationController
     name = params[:pokemon_name].downcase.strip
 
     if TeamBuilder.check_team_size(@team)
-      redirect_to teams_teams_page_path, alert: "Team already has 6 Pokémon."
-      return
+        redirect_to teams_teams_page_path, alert: "Team already has 6 Pokémon."
+        return
     end
 
-    begin
-      response = Net::HTTP.get(URI("https://pokeapi.co/api/v2/pokemon/#{name}"))
-      data = JSON.parse(response)
+    pokemon = Pokemon.find_by(name: name)
 
-      new_member = TeamBuilder.create_new_member(@team, data)
+    if pokemon.nil?
+        redirect_to teams_teams_page_path, alert: "Pokémon not found in local cache."
+        return
+    end
 
-      if new_member.save
-        puts "PokemonApiService"
-        redirect_to teams_teams_page_path, alert: "#{data["name"].capitalize} added to your team!"
-      else
+    new_member = TeamBuilder.create_new_member(@team, pokemon)
+
+    if new_member.save
+        redirect_to teams_teams_page_path, alert: "#{pokemon.name.capitalize} added to your team!"
+    else
         redirect_to teams_teams_page_path, alert: "Failed to save Pokémon."
-      end
-    rescue => e
-      redirect_to teams_teams_page_path, alert: "Pokémon not found"
     end
   end
+
+
 
   def destroy
     team = current_user.teams.find(params[:id])

@@ -3,7 +3,9 @@
   <turbo-frame id="pokemon_results" class="flex-grow">
     
     <!-- Render the Pokemon Teams Card -->
-    <%= render partial: "teams/shared/pokedex_teams_card", locals: { pokemons: @pokemons_search } %>
+    <div class="w-full grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 xl:grid-cols-6 gap-6">
+      <%= render partial: "teams/shared/pokedex_teams_card", locals: { pokemons: @pokemons_search } %>
+    </div>
   
   </turbo-frame>
 

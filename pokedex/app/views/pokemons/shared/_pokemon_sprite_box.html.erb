@@ -1,0 +1,10 @@
+<!-- app/views/pokemons/shared/_pokemon_sprite_box.html.erb -->
+<a href="<%= pokemon_path(pokemon.name) %>"
+   class="w-48 h-12 rounded-md
+          flex items-center justify-center
+          hover:shadow-md transition-transform hover:scale-105">
+  
+  <img src="<%= pokemon.sprite_url %>"
+       alt="<%= pokemon.name %>"
+       class="w-48 h-48 object-contain" />
+</a>

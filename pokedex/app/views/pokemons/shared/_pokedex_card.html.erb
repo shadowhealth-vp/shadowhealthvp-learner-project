@@ -1,6 +1,6 @@
-<!-- General list of Pokemons-->
-<% @pokemons.each do |pokemon| %>
-    <!-- Render each individual Pokemon Card -->
-    <%= render partial: "pokemons/shared/pokemon_info", locals: { pokemon: pokemon } %> 
-  <% end %>
-</div>
+<!-- Render each Pokemon -->
+    <% @pokemons.each do |pokemon| %>
+        <!-- Render each individual Pokemon Card -->
+        <%= render partial: "pokemons/shared/pokemon_info", locals: { pokemon: pokemon } %> 
+        
+    <% end %>

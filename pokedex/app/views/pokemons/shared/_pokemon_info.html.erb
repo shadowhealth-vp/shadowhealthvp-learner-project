@@ -1,13 +1,15 @@
-<a href="<%= pokemon_path(pokemon.name) %>" 
-    class="block shadow-lg rounded-lg p-4 text-center border border-gray-200 
-        transition-transform transform hover:scale-105 hover:shadow-2xl cursor-pointer <%= type_color_class(pokemon.types[0]) %>">
-      
+<a  href="<%= pokemon_path(pokemon.name) %>" 
+    class="block shadow-lg rounded-lg text-center border border-gray-200
+            transition-transform transform hover:scale-105 hover:shadow-2xl cursor-pointer 
+            <%= type_color_class(pokemon.types[0]) %> p-4">
+
     <img src="<%= pokemon.sprite_url %>"
-        alt="<%= pokemon.name %>" 
-        class="w-32 h-32 object-contain mx-auto">
+         alt="<%= pokemon.name %>"
+         class="w-full h-24 object-contain mx-auto" />
 
-    <p class="text-lg font-semibold capitalize mt-2 overflow-hidden max-w-full truncate"><%= pokemon.name %></p>
+    <p class="text-sm sm:text-base md:text-lg lg:text-xl font-semibold capitalize mt-2 break-words">
+        <%= pokemon.name %>
+    </p>
 
-    <!-- Pokemon Types -->
     <%= render partial: "shared/type_badges", locals: { types: pokemon.types } %>
 </a>
