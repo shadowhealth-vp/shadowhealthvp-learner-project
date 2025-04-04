@@ -2,7 +2,7 @@
 # Research and create a rake to fetch data from PokeAPI
 
 namespace :pokemon do
-  desc "Import and get all 1300 pokemon into the database"
+  desc "Import and getting first 1026 pokemon into the database"
   task import_all: :environment do
     puts "Fetching all Pokemon as rake task. . ."
 

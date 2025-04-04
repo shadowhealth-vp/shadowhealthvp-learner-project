@@ -1,5 +1,5 @@
 class PokemonCacheService
-  EXPIRATION_TIME = 59.minutes
+  EXPIRATION_TIME = 1.minutes
 
   def self.find_or_fetch(name)
     # Main function used by controller to get PokeAPI data
@@ -8,7 +8,7 @@ class PokemonCacheService
     # Check if fetched exists or needs to be updated
     if cur_pokemon && cur_pokemon.fetched_time > EXPIRATION_TIME.ago
         puts "TIMESTAMP NOT EXPIRED! USING CACHED VERSION. . . ."
-        return cur_pokemon # use cached version
+        return cur_pokemon # Use cached version
     end
 
     puts "Doing a fresh fetch #{EXPIRATION_TIME} from PokeAPI..."

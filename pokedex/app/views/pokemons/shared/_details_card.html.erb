@@ -2,7 +2,7 @@
     <!-- Pokemon Banner -->
     <div class="relative h-64 <%= type_color_class(@pokemon.types[0]) %> flex justify-center items-end">
         <div class="absolute top-0 w-full h-full bg-white opacity-20 rounded-b-full"></div>
-        <img src="<%= @pokemon.sprite_url %>"
+        <img src="<%= @pokemon.sprites["official_artwork"] %>"
              alt="<%= @pokemon.name %>"
              class="z-10 w-48 h-48 object-contain mb-4 drop-shadow-lg">
     </div>

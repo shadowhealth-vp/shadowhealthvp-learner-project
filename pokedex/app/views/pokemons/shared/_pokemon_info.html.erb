@@ -3,7 +3,7 @@
             transition-transform transform hover:scale-105 hover:shadow-2xl cursor-pointer 
             <%= type_color_class(pokemon.types[0]) %> p-4">
 
-    <img src="<%= pokemon.sprite_url %>"
+    <img src="<%= pokemon.sprites&.dig("official_artwork") || pokemon.sprite_url %>"
          alt="<%= pokemon.name %>"
          class="w-full h-24 object-contain mx-auto" />
 

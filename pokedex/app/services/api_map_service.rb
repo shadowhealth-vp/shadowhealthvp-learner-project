@@ -8,6 +8,7 @@ class ApiMapService
       types: base_data["types"].map { |t| t["type"]["name"] },
       height: base_data["height"],
       weight: base_data["weight"],
+      sprites: extract_all_sprites(base_data),
       sprite_url: base_data["sprites"]["front_default"],
       stats: base_data["stats"].map { |s| { s["stat"]["name"] => s["base_stat"] } }.reduce({}, :merge),
       abilities: base_data["abilities"].map { |a| a["ability"]["name"] }
@@ -56,5 +57,31 @@ class ApiMapService
     female = (rate / 8.0 * 100).round
     male = 100 - female
     "♂ #{male}%, ♀ #{female}%"
+  end
+
+  def self.extract_all_sprites(base_data)
+    # Returns a hash of all the sprites given in the PokeAPI
+    sprites = base_data["sprites"]
+    sprite_hash = {}
+
+    # Top-level sprites
+    sprite_hash["default"] = sprites["front_default"]
+    sprite_hash["back_default"] = sprites["back_default"]
+    sprite_hash["shiny"] = sprites["front_shiny"]
+    sprite_hash["back_shiny"] = sprites["back_shiny"]
+
+    # Dream World and official artwork
+    sprite_hash["dream_world"] = sprites.dig("other", "dream_world", "front_default")
+    sprite_hash["official_artwork"] = sprites.dig("other", "official-artwork", "front_default")
+
+    # Loop through generations
+    sprites["versions"]&.each do |gen, games|
+        games.each do |game, data|
+            key = "#{gen}_#{game}"
+            sprite_hash[key] = data["front_default"]
+        end
+    end
+
+    sprite_hash.compact # Remove nils
   end
 end
