@@ -1,10 +1,10 @@
 <div class="bg-white border border-gray-300 rounded-3xl overflow-hidden shadow-2xl">
     <!-- Pokemon Banner -->
-    <div class="relative h-48 <%= type_color_class(@pokemon.types[0]) %> flex justify-center items-end">
+    <div class="relative h-64 <%= type_color_class(@pokemon.types[0]) %> flex justify-center items-end">
         <div class="absolute top-0 w-full h-full bg-white opacity-20 rounded-b-full"></div>
         <img src="<%= @pokemon.sprite_url %>"
              alt="<%= @pokemon.name %>"
-             class="z-10 w-40 h-40 object-contain mb-4 drop-shadow-lg">
+             class="z-10 w-48 h-48 object-contain mb-4 drop-shadow-lg">
     </div>
 
     <!-- Content -->

@@ -16,7 +16,7 @@ class ApiMapService
 
   # Data from species API call
   def self.map_species_to_model(species_data)
-  {
+    {
     description: get_species_description(species_data),
     species: get_species_title(species_data),
     habitat: species_data["habitat"]&.dig("name")&.capitalize,
@@ -29,25 +29,25 @@ class ApiMapService
     color: species_data["color"]&.dig("name")&.capitalize,
     gender_ratio: calculate_gender_ratio(species_data["gender_rate"]),
     generation: species_data["generation"]&.dig("name")&.titleize
-  }
+    }
   end
 
   def self.get_species_description(species_data)
     entry = species_data["flavor_text_entries"].find { |e| e["language"]["name"] == "en" }
     if entry
-      flavor_text = entry["flavor_text"]
-      flavor_text.gsub(/\n|\f/, " ")
+        flavor_text = entry["flavor_text"]
+        flavor_text.gsub(/\n|\f/, " ")
     else
-      "No description available."
+        "No description available."
     end
   end
 
   def self.get_species_title(species_data)
     entry = species_data["genera"].find { |g| g["language"]["name"] == "en" }
     if entry
-      entry["genus"]
+        entry["genus"]
     else
-      "Unknown"
+        "Unknown"
     end
   end
 

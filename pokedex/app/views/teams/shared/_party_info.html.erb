@@ -1,27 +1,22 @@
 <div class="mb-10">
     <h1 class="font-bold text-4xl mb-4 mt-4">Current Party</h1>
-
     <% if @team_members.any? %>
         <%= button_to "Delete Team", team_path(@team), method: :delete,
                                                        class: "bg-red-500 text-white mb-4 px-4 py-2 rounded hover:bg-red-600 cursor-pointer" %>
-
         <div class="grid grid-cols-2 gap-5">
             <% @team_members.each do |member| %>
                 <%= button_to team_team_member_path(@team, member), method: :delete,
                                                                     class: "bg-white shadow-md border border-gray-200 rounded-lg p-4 text-center 
-                                                                            transition-transform transform hover:scale-105 hover:shadow-2xl cursor-pointer 
-                                                                            w-full h-44 flex flex-col justify-between" do %>
-
+                                                                                                                    transition-transform transform hover:scale-105 hover:shadow-2xl cursor-pointer 
+                                                                                                                    w-full h-44 flex flex-col justify-between" do %>
                     <div class="flex justify-center items-center h-24">
                         <img src="<%= get_sprite_url_from_id(member.pokemon_id) %>"
                             alt="<%= member.name %>"
                             class="w-20 h-20 object-contain" />
                     </div>
-
                     <p class="mt-1 font-semibold capitalize text-gray-800 text-sm truncate">
                         <%= member.name %>
                     </p>
-
                     <%= render partial: "shared/type_badges", locals: { types: member.types } %>
                 <% end %>
             <% end %>

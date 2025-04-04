@@ -1,0 +1,15 @@
+<!-- Filter badges for the index page -->
+<div class="flex flex-wrap gap-4 mb-6">
+    <% active_type = params[:type] %>
+
+    <%= link_to pokemons_path, class: "px-3 py-1 rounded-full font-semibold text-sm shadow bg-gray-400 text-white transition hover:opacity-100 #{"opacity-60" unless active_type.blank?}" do %>
+        All
+    <% end %>
+
+    <% types.each do |type| %>
+        <% is_active = active_type == type %>
+        <%= link_to pokemons_path(type: type), class: "px-3 py-1 rounded-full font-semibold text-sm shadow #{type_badge_class(type)} transition hover:opacity-100 #{"opacity-60" unless is_active}" do %>
+            <%= type.capitalize %>
+        <% end %>
+    <% end %>
+</div>

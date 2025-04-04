@@ -1,13 +1,11 @@
 <div class="flex flex-row gap-6 px-6">
   <!-- Search Result Grid -->
-  <turbo-frame id="pokemon_results" class="flex-grow">
-    
     <!-- Render the Pokemon Teams Card -->
-    <div class="w-full grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 xl:grid-cols-6 gap-6">
-      <%= render partial: "teams/shared/pokedex_teams_card", locals: { pokemons: @pokemons_search } %>
+      <div>     
+        <div class="w-full grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-6 gap-6 2xl:grid-cols-6 gap-8 ">
+          <%= render partial: "teams/shared/pokedex_teams_card", locals: { pokemons: @pokemons_search } %>
+        </div>
     </div>
-  
-  </turbo-frame>
 
   <!-- Search Sidebar -->
   <div class="">
